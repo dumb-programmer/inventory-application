@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -5,6 +7,17 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const compression = require("compression");
 const helmet = require("helmet");
+const mongoose = require("mongoose");
+
+(async () => {
+  try {
+    mongoose.connect(process.env.MONGODB_URL);
+    console.log("Successfully connected to MongoDB");
+  }
+  catch (error) {
+    console.error("Can't connect to MongoDB");
+  }
+})()
 
 const indexRouter = require('./routes/index');
 
