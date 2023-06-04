@@ -1,5 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  form(method="GET" action="")
+    label(for="category") Category:
+      select(id="category" name="category")
+        each category in categories
+          option(value=category)= category
+      button(type="submit" class="filter-btn") Filter
+  div.items
+    each item in items
+      div.item
+        <img class="item-thumbnail" src="https://placehold.co/280x200"/>
+        a(href="/item/10" class="item-name")=item.name
