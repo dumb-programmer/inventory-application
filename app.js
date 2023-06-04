@@ -20,6 +20,7 @@ const mongoose = require("mongoose");
 })()
 
 const indexRouter = require('./routes/index');
+const itemRouter = require("./routes/item");
 
 const app = express();
 
@@ -33,7 +34,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(compression());
-app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+  "directives": {
+    "img-src": ["'self", "https://placehold.co/"]
+  }
+}));
 // Set up rate limiter: maximum of twenty requests per minute
 const RateLimit = require("express-rate-limit");
 const limiter = RateLimit({
@@ -45,6 +50,7 @@ app.use(limiter);
 
 
 app.use('/', indexRouter);
+app.use("/item", itemRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
