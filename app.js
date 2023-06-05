@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(compression());
 app.use(helmet.contentSecurityPolicy({
   "directives": {
-    "img-src": ["'self", "https://placehold.co/"]
+    "img-src": ["'self", "https://placehold.co/"],
   }
 }));
 // Set up rate limiter: maximum of twenty requests per minute
