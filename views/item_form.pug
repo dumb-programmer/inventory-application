@@ -4,7 +4,9 @@ block content
     h1 #{title} Item
     form(action="#" method="POST" class="item-form")
         label(for="name") Name:
-        input(type="text" id="name" name="name")
+        input(type="text" id="name" name="name" value=(item && item.name))
         label(for="description") Description:
-        textarea(id="description" name="description")
+        textarea(id="description" name="description")= item && item.description
+        label(for="stock") Stock:
+        input(type="number" id="stock" name="quantity" min=0 value=(item && item.quantity))
         button(type="submit" class="primary-btn") Submit

@@ -5,10 +5,10 @@ block content
     label(for="category") Category:
       select(id="category" name="category")
         each category in categories
-          option(value=category)= category
+          option(value=category.name)= category.name
       button(type="submit" class="filter-btn") Filter
   div.items
     each item in items
       div.item
         <img class="item-thumbnail" src="https://placehold.co/280x200"/>
-        a(href="/item/10" class="item-name")=item.name
+        a(href=`/item/${item.id}` class="item-name")=item.name
