@@ -9,4 +9,8 @@ block content
         textarea(id="description" name="description")= item && item.description
         label(for="stock") Stock:
         input(type="number" id="stock" name="quantity" min=0 value=(item && item.quantity))
+        label(for="category") Category:
+        select(id="category" name="category")
+            each category in categories
+                option(value=category.id selected=item && item.category.toString() === category.id)= category.name
         button(type="submit" class="primary-btn") Submit
