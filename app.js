@@ -17,10 +17,11 @@ const mongoose = require("mongoose");
   catch (error) {
     console.error("Can't connect to MongoDB");
   }
-})()
+})();
 
 const indexRouter = require('./routes/index');
 const itemRouter = require("./routes/item");
+const categoryRouter = require("./routes/category");
 
 const app = express();
 
@@ -34,9 +35,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(compression());
+app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
   "directives": {
-    "img-src": ["'self", "https://placehold.co/"],
+    "img-src": ["'self'", "https://placehold.co/"],
   }
 }));
 // Set up rate limiter: maximum of twenty requests per minute
@@ -49,8 +51,10 @@ const limiter = RateLimit({
 app.use(limiter);
 
 
+
 app.use('/', indexRouter);
 app.use("/item", itemRouter);
+app.use("/category", categoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

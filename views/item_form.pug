@@ -2,7 +2,7 @@ extends layout
 
 block content 
     h1 #{title} Item
-    form(action="#" method="POST" class="item-form")
+    form(action="#" method="POST" class="form")
         label(for="name") Name:
         input(type="text" id="name" name="name" value=(item && item.name))
         label(for="description") Description:
