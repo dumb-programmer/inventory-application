@@ -81,6 +81,14 @@ main {
   gap: 1rem;
 }
 
+.input__invalid {
+  border: 1px solid red;
+}
+
+.error-message {
+  color: red;
+}
+
 .confirmation-dialog {
   max-width: max-content;
 }

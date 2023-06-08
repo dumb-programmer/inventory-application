@@ -1,17 +1,32 @@
 const expressAsyncHandler = require("express-async-handler");
 const Category = require("../models/category");
 const Item = require("../models/item");
+const { body, validationResult } = require("express-validator");
 
 const create_category_form = (req, res, next) => {
     res.render("category_form", { title: "Create Category" });
 };
 
-const create_category = expressAsyncHandler(async (req, res, next) => {
-    const { name, description } = req.body;
-    const category = new Category({ name, description });
-    await category.save();
-    res.redirect("/");
-});
+const validateCategory = [
+    body("name").notEmpty().withMessage("Name is required").isLength({ min: 5, max: 50 }).withMessage("Name must be between 10 and 50 characters").escape(),
+    body("description").isLength({ min: 0, max: 500 }).withMessage("Description can't be greater than 500 characters").escape()
+]
+
+const create_category = [
+    ...validateCategory,
+    expressAsyncHandler(async (req, res, next) => {
+        const { name, description } = req.body;
+        const category = new Category({ name, description });
+        const result = validationResult(req);
+        if (!result.isEmpty()) {
+            res.render("category_form", { title: "Create Category", errors: result.array(), category });
+        }
+        else {
+            await category.save();
+            res.redirect("/");
+        }
+    })
+]
 
 const update_category_form = expressAsyncHandler(async (req, res, next) => {
     const { categoryId } = req.params;
@@ -19,12 +34,22 @@ const update_category_form = expressAsyncHandler(async (req, res, next) => {
     res.render("category_form", { title: "Update Category", category });
 });
 
-const update_category = expressAsyncHandler(async (req, res, next) => {
-    const { categoryId } = req.params;
-    const { name, description } = req.body;
-    await Category.updateOne({ _id: categoryId }, { name, description });
-    res.redirect("/");
-});
+const update_category = [
+    ...validateCategory,
+    expressAsyncHandler(async (req, res, next) => {
+        const { categoryId } = req.params;
+        const { name, description } = req.body;
+        const category = new Category({ name, description, _id: categoryId });
+        const result = validationResult(req);
+        if (!result.isEmpty()) {
+            res.render("category_form", { title: "Update Category", errors: result.array(), category })
+        }
+        else {
+            await Category.findByIdAndUpdate({ _id: categoryId }, category, {});
+            res.redirect("/");
+        }
+    })
+]
 
 const delete_category_confirmation = expressAsyncHandler(async (req, res, next) => {
     const { categoryId } = req.params;

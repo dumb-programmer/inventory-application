@@ -4,7 +4,9 @@ block content
     h1 #{title}
     form(action="" method="POST" class="form")
         label(for="name") Name:
-        input(type="text" id="name" name="name" value=(category && category.name))
-        label(for="description") Description: 
-        textarea(id="description" name="description")= category && category.description
+        input(type="text" id="name" name="name" value=(category && category.name) class=(errors &&  (errors.filter(({path}) => path === "name")).length > 0 ? "input__invalid": "") required)
+        span.error-message= errors && (errors.filter(({path}) => path === "name")).length > 0 ? errors.filter(({path}) => path === "name")[0].msg : ""
+        label(for="description") Description:
+        textarea(id="description" name="description" class=(errors && (errors.filter(({path}) => path === "description")).length > 0 ? "input__invalid" : ""))= category && category.description
+        span.error-message= errors && (errors.filter(({path}) => path === "description")).length > 0  ? errors.filter(({path}) => path === "description")[0].msg : ""
         button(type="submit" class="primary-btn") Submit
