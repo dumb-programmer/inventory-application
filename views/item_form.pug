@@ -1,20 +1,28 @@
 extends layout 
 
 block content 
-    h1 #{title}
     form(action="" method="POST" class="form")
-        label(for="name") Name:
-        input(type="text" id="name" name="name" value=(item && item.name) class=(errors &&  (errors.filter(({path}) => path === "name")).length > 0 ? "input__invalid": "") required)
-        span.error-message= errors && (errors.filter(({path}) => path === "name")).length > 0 ? errors.filter(({path}) => path === "name")[0].msg : ""
-        label(for="description") Description:
-        textarea(id="description" name="description" class=(errors && (errors.filter(({path}) => path === "description")).length > 0 ? "input__invalid" : ""))= item && item.description
-        span.error-message= errors && (errors.filter(({path}) => path === "description")).length > 0  ? errors.filter(({path}) => path === "description")[0].msg : ""
-        label(for="stock") Stock:
-        input(type="number" id="stock" name="quantity" min=0 value=(item && item.quantity) class=(errors && (errors.filter(({path}) => path === "quantity")).length > 0 ? "input__invalid" : "") required)
-        span.error-message= errors && (errors.filter(({path}) => path === "quantity")).length > 0 ? errors.filter(({path}) => path === "quantity")[0].msg : ""
-        label(for="category") Category:
-        select(id="category" name="category" class=(errors && (errors.filter(({path}) => path === "category")).length > 0 ? "input__invalid" : ""))
-            each category, index in categories
-                option(value=category.id selected=((item && item.category && item.category.toString() === category._id.toString()) || index === 0))= category.name
-        span.error-message= errors && (errors.filter(({path}) => path === "category")).length > 0 ? errors.filter(({path}) => path === "category")[0].msg : ""
+        h1.form-heading #{title}
+        .form-control
+            label(for="name") Name
+                span(aria-label="required") *
+            input(type="text" id="name" name="name" value=(item && item.name) class=(errors &&  (errors.filter(({path}) => path === "name")).length > 0 ? "input__invalid": "") required)
+            span.error-message= errors && (errors.filter(({path}) => path === "name")).length > 0 ? errors.filter(({path}) => path === "name")[0].msg : ""
+        .form-control
+            label(for="description") Description
+            textarea(id="description" name="description" class=(errors && (errors.filter(({path}) => path === "description")).length > 0 ? "input__invalid" : ""))= item && item.description
+            span.error-message= errors && (errors.filter(({path}) => path === "description")).length > 0  ? errors.filter(({path}) => path === "description")[0].msg : ""
+        .form-control
+            label(for="stock") Stock
+                span(aria-label="required") *
+            input(type="number" id="stock" name="quantity" min=0 value=(item && item.quantity) class=(errors && (errors.filter(({path}) => path === "quantity")).length > 0 ? "input__invalid" : "") required)
+            span.error-message= errors && (errors.filter(({path}) => path === "quantity")).length > 0 ? errors.filter(({path}) => path === "quantity")[0].msg : ""
+        .form-control
+            label(for="category") Category
+                span(aria-label="required") *
+            .select-wrapper
+                select(id="category" name="category" class=(errors && (errors.filter(({path}) => path === "category")).length > 0 ? "input__invalid" : ""))
+                    each category, index in categories
+                        option(value=category.id selected=((item && item.category && item.category.toString() === category._id.toString()) || index === 0))= category.name
+            span.error-message= errors && (errors.filter(({path}) => path === "category")).length > 0 ? errors.filter(({path}) => path === "category")[0].msg : ""
         button(type="submit" class="primary-btn") Submit

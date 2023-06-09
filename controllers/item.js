@@ -12,7 +12,7 @@ const index = expressAsyncHandler(async (req, res, next) => {
 
 const create_item_form = expressAsyncHandler(async (req, res, next) => {
     const categories = await Category.find();
-    res.render("item_form", { categories });
+    res.render("item_form", { title: "Create Item", categories });
 });
 
 const validateItem = [
