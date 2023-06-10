@@ -5,11 +5,10 @@ html
     link(rel='stylesheet' href='/stylesheets/style.css')
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
-    header #[h1 FreshStock]
+    header #[a(href="/") #[h1 FreshStock]]
       nav.header-nav
         ul
-          each item in ["Items", "Categories"]
-            li 
-              a(href=`${item.toLowerCase()}`)= item
+          li
+            a(href="/category") Categories
     main
       block content

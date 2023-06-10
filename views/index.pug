@@ -1,16 +1,17 @@
 extends layout
 
 block content
-  form(method="GET" action="")
-    label(for="category") Category:
-      select(id="category" name="category")
-        each category in categories
-          option(value=category.name)= category.name
+  .container(style="display:flex; justify-content: space-between; align-items:center;")
+    form(method="GET" action="")
+      label(for="category") Category: 
+        select(id="category" name="category")
+          each category in categories
+            option(value=category.name)= category.name
       button(type="submit" class="filter-btn") Filter
+    a.primary-btn.create-btn(href="/item/create") Create Item
   div.items
     each item in items
       div.item
         <img class="item-thumbnail" src="https://placehold.co/280x200"/>
         a(href=`/item/${item.id}` class="item-name")=item.name
-  button.create-item-btn +
-    button.create-category-btn -
+  script(src="/javascripts/index.js") 

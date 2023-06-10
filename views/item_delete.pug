@@ -1,9 +1,10 @@
 extends layout 
 
 block content 
-    form(action="#" method="POST" class="form confirmation-dialog")
-        h1 Delete Item
-        p Are you sure you want to delete this item? This action is not reverseable
-        .btns-container 
-            button.secondary-btn Cancel 
-            button(type="submit" class="danger-btn") Delete
+    .centered
+        form(action="#" method="POST" class="form confirmation-dialog")
+            h1 Delete Item
+            p Are you sure you want to delete this item? This action is not reverseable
+            .btns-container 
+                button.secondary-btn Cancel 
+                button(type="submit" class="danger-btn") Delete

@@ -1,5 +1,5 @@
-const deleteItemBtn = document.querySelector(".delete-item-btn");
-const updateItemBtn = document.querySelector(".update-item-btn");
+const deleteItemBtn = document.querySelector(".delete-btn");
+const updateItemBtn = document.querySelector(".update-btn");
 
 deleteItemBtn.addEventListener("click", () => {
     const id = window.location.href.split("/");

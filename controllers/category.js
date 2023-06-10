@@ -3,6 +3,11 @@ const Category = require("../models/category");
 const Item = require("../models/item");
 const { body, validationResult } = require("express-validator");
 
+const get_categories = expressAsyncHandler(async (req, res, next) => {
+    const categories = await Category.find();
+    res.render("category_all", { title: "Categories", categories });
+});
+
 const create_category_form = (req, res, next) => {
     res.render("category_form", { title: "Create Category" });
 };
@@ -23,7 +28,7 @@ const create_category = [
         }
         else {
             await category.save();
-            res.redirect("/");
+            res.redirect("/category");
         }
     })
 ]
@@ -46,7 +51,7 @@ const update_category = [
         }
         else {
             await Category.findByIdAndUpdate({ _id: categoryId }, category, {});
-            res.redirect("/");
+            res.redirect("/category");
         }
     })
 ]
@@ -60,7 +65,7 @@ const delete_category_confirmation = expressAsyncHandler(async (req, res, next) 
 const delete_category = expressAsyncHandler(async (req, res, next) => {
     const { categoryId } = req.params;
     await Category.deleteOne({ _id: categoryId });
-    res.redirect("/");
+    res.redirect("/category");
 });
 
-module.exports = { create_category_form, create_category, update_category_form, update_category, delete_category_confirmation, delete_category };
+module.exports = { get_categories, create_category_form, create_category, update_category_form, update_category, delete_category_confirmation, delete_category };
