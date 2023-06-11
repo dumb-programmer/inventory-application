@@ -1,13 +1,14 @@
 extends layout
 
 block content
-  .container(style="display:flex; justify-content: space-between; align-items:center;")
-    form(method="GET" action="")
+  .container(style="display:flex; justify-content: space-between; align-items:center; flex-wrap:wrap;")
+    form(method="GET" action="" style="display:flex;align-items:center;gap:0.5rem;")
       label(for="category") Category: 
+      .select-wrapper
         select(id="category" name="category")
-          each category in categories
-            option(value=category.name)= category.name
-      button(type="submit" class="filter-btn") Filter
+          each category, index in categories
+            option(value=category.name.toLowerCase() selected=((categoryId && categoryId === category._id) || index === 0))= category.name
+      button(type="submit" class="primary-btn") Filter
     a.primary-btn.create-btn(href="/item/create") Create Item
   div.items
     each item in items

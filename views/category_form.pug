@@ -6,7 +6,7 @@ block content
             h1 #{title}
             .form-control
                 label(for="name") Name:
-                input(type="text" id="name" name="name" value=(category && category.name) class=(errors &&  (errors.filter(({path}) => path === "name")).length > 0 ? "input__invalid": "") required)
+                input(type="text" id="name" name="name" value=(category && category.name) class=(errors &&  (errors.filter(({path}) => path === "name")).length > 0 ? "input__invalid": "") autocomplete="off" required)
                 span.error-message= errors && (errors.filter(({path}) => path === "name")).length > 0 ? errors.filter(({path}) => path === "name")[0].msg : ""
             .form-control
                 label(for="description") Description:

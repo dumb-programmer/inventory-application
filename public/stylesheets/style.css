@@ -1,8 +1,12 @@
 @import url(http://fonts.googleapis.com/css?family=Libre+Baskerville);
 
 :root {
-  --background-clr: #F0F0F0;
-  --primary-clr: #3C486B;
+  --background-clr: #EEEEEE;
+  --primary-clr: #222831;
+  --primary-hover-clr: #464e5a;
+  --accent-clr: #00ADB5;
+  --red: #eb5757;
+  --grey: #757575;
 }
 
 * {
@@ -49,7 +53,7 @@ main {
   flex-direction: column;
   max-width: 280px;
   background-color: #fff;
-  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 3px 8px 3px rgba(0, 0, 0, 0.05);
   border-radius: 5px;
   transition: transform 0.2s;
 }
@@ -126,44 +130,41 @@ main {
   position: relative;
 }
 
-.form-control select {
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper>select {
   appearance: none;
   background-color: white;
   border: 1px solid grey;
   border-radius: 3px;
   padding: 5px;
+  padding-right: 30px;
   cursor: pointer;
   min-width: 100%;
 }
 
-.form-control>.select-wrapper::after {
+.select-wrapper::after {
   content: "";
   display: block;
   height: 8px;
   width: 8px;
-  top: 55%;
+  position: absolute;
+  top: 20%;
   right: 10px;
   border: 2.5px solid transparent;
   border-radius: 2px;
-  position: absolute;
   border-right-color: grey;
   border-bottom-color: grey;
   transform: rotate(45deg);
 }
 
-.form-control>input:focus, .form-control>textarea:focus, .form-control select:focus {
-  outline: 1px solid #485fc7;
+.form-control>input:focus, .form-control>textarea:focus, .select-wrapper select:focus {
+  outline: 1px solid var(--accent-clr);
 }
 
-button[type="submit"] {
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 8px;
-  text-align: center;
-  font-weight: 700;
-}
+button[type="submit"] {}
 
 .form-heading {
   padding: 20px 0;
@@ -194,9 +195,7 @@ span[aria-label="required"] {
   gap: 1rem;
 }
 
-button {
-  /* padding: 8px;
-  border-radius: 5px; */
+a, button {
   border: none;
   background-color: unset;
   cursor: pointer;
@@ -204,13 +203,20 @@ button {
 }
 
 .primary-btn {
+  background-color: var(--primary-clr);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  text-align: center;
+  font-weight: 700;
   text-decoration: none;
   font-size: 0.8rem;
   cursor: pointer;
-  padding: 5px;
-  border-radius: 3px;
-  background-color: var(--primary-clr);
-  color: #fff;
+}
+
+.primary-btn:hover {
+  background-color: var(--primary-hover-clr);
 }
 
 .danger-btn {
@@ -218,6 +224,7 @@ button {
   background-color: rgb(250, 69, 69) !important;
   border-radius: 5px;
   color: #e9e4e4;
+  font-weight: 700;
 }
 
 .danger-btn:hover {
@@ -225,19 +232,18 @@ button {
 }
 
 .secondary-btn {
+  font-size: 0.75rem;
+  border-radius: 5px;
+  display: flex;
+  padding: 5px;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
   color: black;
 }
 
-.delete-btn:hover, .update-btn:hover, .secondary-btn:hover {
+.secondary-btn:hover {
   background-color: rgb(224, 224, 224);
-}
-
-.delete-btn>svg {
-  stroke: rgb(255, 62, 62);
-}
-
-.update-btn>svg {
-  stroke: grey;
 }
 
 .category {
@@ -257,4 +263,18 @@ button {
 .create-btn {
   text-decoration: none;
   font-size: 0.8rem;
+}
+
+@media screen and (max-width: 600px) {
+  main {
+    padding: 0px;
+  }
+
+  .centered {
+    padding: 0 60px;
+  }
+
+  .form {
+    min-width: 300px;
+  }
 }
