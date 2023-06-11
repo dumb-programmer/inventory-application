@@ -5,9 +5,12 @@ const { body, validationResult } = require("express-validator");
 const ObjectId = require("mongoose").Types.ObjectId;
 
 const index = expressAsyncHandler(async (req, res, next) => {
-    const items = await Item.find();
+    const { category: categoryQuery } = req.query;
     const categories = await Category.find();
-    res.render("index", { title: "Items", items, categories, });
+    const categoryId = categories.filter(category => category.name.toLowerCase() === categoryQuery?.toLowerCase())[0]?._id;
+    const filterDoc = (categoryId && { category: categoryId }) || {};
+    const items = await Item.find(filterDoc);
+    res.render("index", { title: "Items", items, categories, categoryId });
 });
 
 const create_item_form = expressAsyncHandler(async (req, res, next) => {
@@ -57,8 +60,10 @@ const get_item = expressAsyncHandler(async (req, res, next) => {
 
 const update_item_form = expressAsyncHandler(async (req, res, next) => {
     const { itemId } = req.params;
-    const item = await Item.findById(itemId);
-    const categories = await Category.find();
+    const [item, categories] = await Promise.all([
+        Item.findById(itemId),
+        Category.find(),
+    ]);
     res.render("item_form", { title: "Update Item", item, categories });
 });
 
@@ -81,7 +86,7 @@ const update_item = [
 ]
 
 const delete_item_confirmation = (req, res, next) => {
-    res.render("item_delete");
+    res.render("item_delete", { itemId: req.params.itemId });
 };
 
 const delete_item = expressAsyncHandler(async (req, res, next) => {
