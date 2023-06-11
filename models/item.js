@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 const Item = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
-    quantity: { type: Number, required: true, min: 0, default: 0 },
+    stock: { type: Number, required: true, min: 0, default: 0 },
+    image: { type: String },
     category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
 });
 

@@ -1,6 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Libre+Baskerville);
 
 :root {
+  --background-clr: #F0F0F0;
+  --primary-clr: #3C486B;
   --background-clr: #EEEEEE;
   --primary-clr: #222831;
   --primary-hover-clr: #464e5a;
@@ -160,11 +162,9 @@ main {
   transform: rotate(45deg);
 }
 
-.form-control>input:focus, .form-control>textarea:focus, .select-wrapper select:focus {
+.form-control>input:focus, .form-control>textarea:focus, .select-wrapper>select:focus {
   outline: 1px solid var(--accent-clr);
 }
-
-button[type="submit"] {}
 
 .form-heading {
   padding: 20px 0;
@@ -242,8 +242,16 @@ a, button {
   color: black;
 }
 
-.secondary-btn:hover {
+.delete-btn:hover, .update-btn:hover, .secondary-btn:hover {
   background-color: rgb(224, 224, 224);
+}
+
+.delete-btn>svg {
+  stroke: rgb(255, 62, 62);
+}
+
+.update-btn>svg {
+  stroke: grey;
 }
 
 .category {
