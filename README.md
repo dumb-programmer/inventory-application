@@ -3,7 +3,7 @@
 # Setup
   Make sure you have ```MONGODB_URL``` variable set in your environment. You can start the server using the following command
   ```bash
-    $ node start
+    $ npm start
   ```
 # Libraries
 - <a href="https://expressjs.com">ExpressJS</a>
