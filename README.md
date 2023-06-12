@@ -2,7 +2,9 @@
  An express-based app which allows users to organize and manage an inventory of items into categories. This project demonstrates my understanding of CRUD operations, validation and sanitization and working with databases using an ORM.
 # Setup
   Make sure you have ```MONGODB_URL``` variable set in your environment. You can start the server using the following command
-  ```$node start```
+  ```bash
+    $ node start
+  ```
 # Libraries
 - <a href="https://expressjs.com">ExpressJS</a>
 - <a href="mongoosejs.com/">Mongoose</a>
